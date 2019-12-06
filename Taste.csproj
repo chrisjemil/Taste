@@ -2,6 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UserSecretsId>aspnet-Taste-E66BB51A-188E-4A62-9E98-D52C8D320DF5</UserSecretsId>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableDefaultRazorTargetAssemblyInfoAttributes>false</EnableDefaultRazorTargetAssemblyInfoAttributes>
   </PropertyGroup>
   <ItemGroup>
     <None Update="app.db" CopyToOutputDirectory="PreserveNewest" />
@@ -16,10 +18,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0" />
     <PackageReference Include="Stripe.net" Version="34.1.0" />
   </ItemGroup>
-  <ItemGroup>
+  <!-- <ItemGroup>
     <ProjectReference Include="Taste.DataAccess\Taste.DataAccess.csproj" />
     <ProjectReference Include="Taste.Models\Taste.Models.csproj" />
-  </ItemGroup>
+  </ItemGroup> -->
 
   
 </Project>
