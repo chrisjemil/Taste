@@ -3,6 +3,8 @@ using Taste.DataAccess.Data.Repository.IRepository;
 
 namespace Taste.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
