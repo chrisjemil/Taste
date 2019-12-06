@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Taste.DataAccess.Data.Repository.IRepository;
@@ -20,19 +22,31 @@ namespace Taste.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Json(new { data = _unitOfWork.me.GetAll() });
+            return Json(new { data = _unitOfWork.MenuItem.GetAll(null, null, "Category,FoodType") });
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var objFromDb = _unitOfWork.FoodType.GetFirstOrDefault(u => u.Id == id);
-            if (objFromDb == null)
+            try
+            {
+                var objFromDb = _unitOfWork.MenuItem.GetFirstOrDefault(u => u.Id == id);
+                if (objFromDb == null)
+                {
+                    return Json(new { success = false, message = "Error while deleting." });
+                }
+                var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, objFromDb.Image.TrimStart('\\'));
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+                _unitOfWork.MenuItem.Remove(objFromDb);
+                _unitOfWork.Save();
+            }
+            catch (Exception ex)
             {
                 return Json(new { success = false, message = "Error while deleting." });
             }
-            _unitOfWork.FoodType.Remove(objFromDb);
-            _unitOfWork.Save();
             return Json(new { success = true, message = "Delete success." });
         }
     }
