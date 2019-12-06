@@ -28,7 +28,7 @@ namespace Taste
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(
+                options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -56,7 +56,7 @@ namespace Taste
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-           
+
 
             app.UseAuthentication();
             app.UseAuthorization();
