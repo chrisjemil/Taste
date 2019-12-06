@@ -18,10 +18,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0" />
     <PackageReference Include="Stripe.net" Version="34.1.0" />
   </ItemGroup>
-  <!-- <ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="Taste.DataAccess\Taste.DataAccess.csproj" />
     <ProjectReference Include="Taste.Models\Taste.Models.csproj" />
-  </ItemGroup> -->
+  </ItemGroup>
 
   
 </Project>
