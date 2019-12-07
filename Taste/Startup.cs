@@ -41,11 +41,19 @@ namespace Taste
             services.AddSingleton<IEmailSender, EmailSender>();
 
             services.ConfigureApplicationCookie(options =>
-                {
-                    options.LoginPath = $"/Identity/Account/Login";
-                    options.LogoutPath = $"/Identity/Account/Logout";
-                    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
-                });
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -71,7 +79,7 @@ namespace Taste
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
 
 
             app.UseAuthentication();
