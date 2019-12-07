@@ -22,7 +22,7 @@ namespace Taste.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Json(new { data = _unitOfWork.MenuItem.GetAll(null, null, "Category,FoodType") });
+            return Json(new { data = _unitOfWork.MenuItem.GetAll(null,null,"Category,FoodType") });
         }
 
         [HttpDelete("{id}")]
@@ -35,15 +35,17 @@ namespace Taste.Controllers
                 {
                     return Json(new { success = false, message = "Error while deleting." });
                 }
+
                 var imagePath = Path.Combine(_hostingEnvironment.WebRootPath, objFromDb.Image.TrimStart('\\'));
                 if (System.IO.File.Exists(imagePath))
                 {
                     System.IO.File.Delete(imagePath);
                 }
+
                 _unitOfWork.MenuItem.Remove(objFromDb);
                 _unitOfWork.Save();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 return Json(new { success = false, message = "Error while deleting." });
             }
