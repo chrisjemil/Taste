@@ -18,7 +18,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.0.0"/>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0"/>
     <PackageReference Include="Stripe.net" Version="34.1.0"/>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.0Fa.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="3.0.0"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Taste.DataAccess\Taste.DataAccess.csproj"/>
