@@ -16,6 +16,7 @@ using Taste.DataAccess.Data.Repository.IRepository;
 using Taste.DataAccess.Data.Repository;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Taste.Utility;
+using Stripe;
 
 namespace Taste
 {
@@ -54,6 +55,7 @@ namespace Taste
                 options.Cookie.IsEssential = true;
             });
 
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
@@ -86,6 +88,8 @@ namespace Taste
             app.UseAuthorization();
 
             app.UseMvc();
+
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
         }
     }
 }
