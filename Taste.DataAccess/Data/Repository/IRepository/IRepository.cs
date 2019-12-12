@@ -33,5 +33,7 @@ namespace Taste.DataAccess.Data.Repository.IRepository
 
         // Remove the complete entity
         void Remove(T entity);
+
+        void RemoveRange(IEnumerable<T> entity);
     }
 }
