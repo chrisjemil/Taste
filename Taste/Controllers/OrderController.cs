@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Taste.DataAccess.Data.Repository.IRepository;
 using Taste.Models;
@@ -21,6 +22,7 @@ namespace Taste.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Get(string status = null)
         {
             List<OrderDetailsViewModel> orderListVM = new List<OrderDetailsViewModel>();
