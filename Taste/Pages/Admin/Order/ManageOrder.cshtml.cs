@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Stripe;
 using Taste.DataAccess.Data.Repository.IRepository;
 using Taste.Models;
 using Taste.Models.ViewModels;
@@ -73,7 +74,14 @@ namespace Taste.Pages.Admin.Order
         {
             OrderHeader orderHeader = _unitOfWork.OrderHeader.GetFirstOrDefault(o => o.Id == orderId);
             //refund amoount
-
+            var options = new RefundCreateOptions
+            {
+                Amount = Convert.ToInt32(orderHeader.OrderTotal*100),
+                Reason = RefundReasons.RequestedByCustomer,
+                Charge = orderHeader.TransactionId
+            };
+            var service = new RefundService();
+            Refund refund = service.Create(options);
             orderHeader.Status = SD.StatusRefunded;
             _unitOfWork.Save();
             return RedirectToPage("ManageOrder");
