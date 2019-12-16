@@ -17,6 +17,7 @@ using Taste.DataAccess.Data.Repository;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Taste.Utility;
 using Stripe;
+using Taste.DataAccess.Data.Initializer;
 
 namespace Taste
 {
@@ -58,6 +59,7 @@ namespace Taste
             services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDbInitializer, DbInitializer>();
 
             // services.AddMvc(options => options.EnableEndpointRouting = false)
             //     .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
@@ -78,7 +80,7 @@ namespace Taste
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDbInitializer dbInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -97,6 +99,7 @@ namespace Taste
             app.UseSession();
 
             app.UseRouting();
+            dbInitializer.Initialize();
             app.UseAuthentication();
             app.UseAuthorization();
 
